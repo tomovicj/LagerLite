@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jun 30, 2025 at 05:23 PM
+-- Generation Time: Jun 30, 2025 at 06:21 PM
 -- Server version: 9.3.0
 -- PHP Version: 8.2.8
 
@@ -31,7 +31,9 @@ CREATE TABLE `product` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text,
-  `code` varchar(50) NOT NULL
+  `code` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -44,7 +46,8 @@ CREATE TABLE `stock_in` (
   `id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` decimal(10,2) NOT NULL,
-  `date` datetime NOT NULL
+  `created_at` datetime NOT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -57,7 +60,8 @@ CREATE TABLE `stock_out` (
   `id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` decimal(10,2) NOT NULL,
-  `date` datetime NOT NULL
+  `created_at` datetime NOT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
