@@ -9,7 +9,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity(name = "stock_out")
+@Entity
+@Table(name = "stock_out")
 @NoArgsConstructor
 @Getter
 @Setter
