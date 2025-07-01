@@ -37,8 +37,8 @@ public class StockInService {
         return repository.save(si);
     }
 
-    public StockIn updateStockIn(StockIn model) {
-        StockIn si = getStockInById(model.getId()).orElseThrow();
+    public StockIn updateStockIn(Integer id, StockIn model) {
+        StockIn si = getStockInById(id).orElseThrow();
         Product product = productService
                 .getProductById(model.getProduct().getId())
                 .orElseThrow();

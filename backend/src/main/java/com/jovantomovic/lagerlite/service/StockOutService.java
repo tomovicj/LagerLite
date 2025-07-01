@@ -39,8 +39,8 @@ public class StockOutService {
         return repository.save(so);
     }
 
-    public StockOut updateStockOut(StockOut model) {
-        StockOut so = getStockOutById(model.getId()).orElseThrow();
+    public StockOut updateStockOut(Integer id, StockOut model) {
+        StockOut so = getStockOutById(id).orElseThrow();
         Product product = productService
                 .getProductById(model.getProduct().getId())
                 .orElseThrow();
