@@ -17,7 +17,10 @@ public class StockInController {
     private final StockInService service;
 
     @GetMapping
-    public List<StockIn> getStockIn() {
+    public List<StockIn> getStockIn(@RequestParam(required = false) Integer productId) {
+        if (productId != null) {
+            return service.getStockInByProductId(productId);
+        }
         return service.getStockIn();
     }
 

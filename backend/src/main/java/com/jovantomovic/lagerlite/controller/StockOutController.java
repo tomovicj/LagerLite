@@ -17,7 +17,10 @@ public class StockOutController {
     private final StockOutService service;
 
     @GetMapping
-    public List<StockOut> getStockOut() {
+    public List<StockOut> getStockOut(@RequestParam(required = false) Integer productId) {
+        if (productId != null) {
+            return service.getStockOutByProductId(productId);
+        }
         return service.getStockOut();
     }
 

@@ -25,6 +25,10 @@ public class StockOutService {
         return repository.findByIdAndDeletedAtIsNull(id);
     }
 
+    public List<StockOut> getStockOutByProductId(Integer productId) {
+        return repository.findByProductIdAndDeletedAtIsNull(productId);
+    }
+
     public StockOut createStockOut(StockOut model) {
         Product product = productService
                 .getProductById((model.getProduct().getId()))

@@ -25,6 +25,10 @@ public class StockInService {
         return repository.findByIdAndDeletedAtIsNull(id);
     }
 
+    public List<StockIn> getStockInByProductId(Integer productId) {
+        return repository.findByProductIdAndDeletedAtIsNull(productId);
+    }
+
     public StockIn createStockIn(StockIn model) {
         Product product = productService
                 .getProductById(model.getProduct().getId())
