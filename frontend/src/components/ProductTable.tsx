@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -63,6 +62,17 @@ function ProductTable() {
 }
 
 function ProductTableRow({ product }: { product: Product }) {
+  const {
+    data: stock,
+    status,
+  } = useQuery({
+    queryKey: ["product-stock", product.id],
+    queryFn: () =>
+      axios
+        .get<number>(`http://localhost:8080/api/product/${product.id}/stock`)
+        .then((res) => res.data),
+  });
+
   return (
     <TableRow>
       <TableCell>{product.id}</TableCell>
@@ -70,7 +80,13 @@ function ProductTableRow({ product }: { product: Product }) {
       <TableCell>{product.description}</TableCell>
       <TableCell>{product.code}</TableCell>
       <TableCell>
-        <Skeleton className="h-[20px] w-[60px] rounded-full" />
+        {status === "pending" ? (
+          <Skeleton className="h-[20px] w-[60px] rounded-full" />
+        ) : status === "error" ? (
+          <span>N/A</span>
+        ) : (
+          stock
+        )}
       </TableCell>
     </TableRow>
   );
