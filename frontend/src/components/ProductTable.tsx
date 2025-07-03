@@ -21,6 +21,7 @@ import { Button } from "./ui/button";
 import {
   CircleMinus,
   CirclePlus,
+  Info,
   MoreHorizontal,
   Pencil,
   Trash2,
@@ -29,6 +30,7 @@ import EditProductDialog from "./EditProductDialog";
 import DeleteProductDialog from "./DeleteProductDialog";
 import AddProductStockDialog from "./AddProductStockDialog";
 import RemoveProductStockDialog from "./RemoveProductStockDialog";
+import { Link } from "@tanstack/react-router";
 
 function ProductTable() {
   const {
@@ -128,6 +130,11 @@ function ProductDropdownOptions(props: { id: number }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
+          <Link to="/product/$id" params={{ id: "" + props.id }}>
+            <DropdownMenuItem>
+              <Info /> Stock History
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem onClick={() => setOpenAddStockDialog(true)}>
             <CirclePlus /> Add Stock
           </DropdownMenuItem>
