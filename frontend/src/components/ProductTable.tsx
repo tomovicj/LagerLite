@@ -83,7 +83,7 @@ function ProductTable() {
 
 function ProductTableRow({ product }: { product: Product }) {
   const { data: stock, status } = useQuery({
-    queryKey: ["product-stock", product.id],
+    queryKey: ["product-available-stock", product.id],
     queryFn: () =>
       axios
         .get<number>(`http://localhost:8080/api/product/${product.id}/stock`)
