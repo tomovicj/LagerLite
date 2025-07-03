@@ -10,6 +10,25 @@ import {
 } from "@/components/ui/table";
 import type { Product } from "@/types/product";
 import { Skeleton } from "./ui/skeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import React from "react";
+import { Button } from "./ui/button";
+import {
+  CircleMinus,
+  CirclePlus,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from "lucide-react";
+import EditProductDialog from "./EditProductDialog";
+import DeleteProductDialog from "./DeleteProductDialog";
+import AddProductStockDialog from "./AddProductStockDialog";
+import RemoveProductStockDialog from "./RemoveProductStockDialog";
 
 function ProductTable() {
   const {
@@ -33,6 +52,7 @@ function ProductTable() {
           <TableHead>Description</TableHead>
           <TableHead>Code</TableHead>
           <TableHead>Stock</TableHead>
+          <TableHead className="w-9"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -62,10 +82,7 @@ function ProductTable() {
 }
 
 function ProductTableRow({ product }: { product: Product }) {
-  const {
-    data: stock,
-    status,
-  } = useQuery({
+  const { data: stock, status } = useQuery({
     queryKey: ["product-stock", product.id],
     queryFn: () =>
       axios
@@ -88,7 +105,69 @@ function ProductTableRow({ product }: { product: Product }) {
           stock
         )}
       </TableCell>
+      <TableCell className="w-9 text-right">
+        <ProductDropdownOptions id={product.id} />
+      </TableCell>
     </TableRow>
+  );
+}
+
+function ProductDropdownOptions(props: { id: number }) {
+  const [openAddStockDialog, setOpenAddStockDialog] = React.useState(false);
+  const [openRemoveStockDialog, setOpenRemoveStockDialog] =
+    React.useState(false);
+  const [openEditDialog, setOpenEditDialog] = React.useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+
+  return (
+    <div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={() => setOpenAddStockDialog(true)}>
+            <CirclePlus /> Add Stock
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpenRemoveStockDialog(true)}>
+            <CircleMinus /> Remove Stock
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpenEditDialog(true)}>
+            <Pencil /> Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="text-destructive focus:text-destructive"
+            onClick={() => setOpenDeleteDialog(true)}
+          >
+            <Trash2 /> Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <>
+        <AddProductStockDialog
+          open={openAddStockDialog}
+          setOpen={setOpenAddStockDialog}
+          productId={props.id}
+        />
+        <RemoveProductStockDialog
+          open={openRemoveStockDialog}
+          setOpen={setOpenRemoveStockDialog}
+          productId={props.id}
+        />
+        <EditProductDialog
+          open={openEditDialog}
+          setOpen={setOpenEditDialog}
+          productId={props.id}
+        />
+        <DeleteProductDialog
+          open={openDeleteDialog}
+          setOpen={setOpenDeleteDialog}
+          productId={props.id}
+        />
+      </>
+    </div>
   );
 }
 
