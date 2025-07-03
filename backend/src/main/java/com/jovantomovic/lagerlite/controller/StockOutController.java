@@ -25,7 +25,7 @@ public class StockOutController {
     }
 
     @PostMapping
-    public StockOut createStockOut(StockOut model) {
+    public StockOut createStockOut(@RequestBody StockOut model) {
         return service.createStockOut(model);
     }
 

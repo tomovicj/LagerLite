@@ -31,7 +31,7 @@ public class StockOutService {
 
     public StockOut createStockOut(StockOut model) {
         Product product = productService
-                .getProductById((model.getProduct().getId()))
+                .getProductById(model.getProduct().getId())
                 .orElseThrow();
 
         checkStock(product.getId(), model.getQuantity());
