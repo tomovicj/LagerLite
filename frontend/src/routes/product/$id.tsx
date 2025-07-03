@@ -11,7 +11,6 @@ import type { Stock } from "@/types/stock";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import axios from "axios";
-import { useMemo } from "react";
 
 export const Route = createFileRoute("/product/$id")({
   component: RouteComponent,
